@@ -361,11 +361,15 @@ if (
           detectHands
         );
       }
-    } catch (error) {
-      console.error(error);
-      alert('MediaPipe 載入失敗');
-    }
-  };
+      
+   } catch (error) {
+  console.error(error);
+
+  alert(
+    'MediaPipe 載入失敗\n\n' +
+    String(error)
+  );
+}
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center gap-6 bg-gray-100">
