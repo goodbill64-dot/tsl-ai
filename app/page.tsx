@@ -366,9 +366,12 @@ export default function Home() {
       console.error(error);
 
       alert(
-        'MediaPipe 載入失敗\n\n' +
-        String(error)
-      );
+  JSON.stringify(
+    error,
+    null,
+    2
+  )
+);
     }
   }; //
 
