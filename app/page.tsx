@@ -10,57 +10,57 @@ export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [gesture, setGesture] =
-  useState('未辨識');
- const questions = [
-  '數字 1',
-  '數字 2',
-  '數字 3',
-  '數字 4',
-  '數字 5',
-];
+    useState('未辨識');
+  const questions = [
+    '數字 1',
+    '數字 2',
+    '數字 3',
+    '數字 4',
+    '數字 5',
+  ];
 
-const [question, setQuestion] =
-  useState(questions[0]);
-const [answerResult, setAnswerResult] =
-  useState('');
- 
+  const [question, setQuestion] =
+    useState(questions[0]);
+  const [answerResult, setAnswerResult] =
+    useState('');
+
   useEffect(() => {
 
-  if (gesture === '未辨識') return;
+    if (gesture === '未辨識') return;
 
-  if (gesture === question) {
+    if (gesture === question) {
 
-    setAnswerResult('✅ 答對');
+      setAnswerResult('✅ 答對');
 
-    setTimeout(() => {
+      setTimeout(() => {
 
-      let nextQuestion = question;
+        let nextQuestion = question;
 
-      while (nextQuestion === question) {
+        while (nextQuestion === question) {
 
-        nextQuestion =
-          questions[
+          nextQuestion =
+            questions[
             Math.floor(
               Math.random() *
               questions.length
             )
-          ];
+            ];
 
-      }
+        }
 
-      setQuestion(nextQuestion);
+        setQuestion(nextQuestion);
 
-      setAnswerResult('');
+        setAnswerResult('');
 
-    }, 1000);
+      }, 1000);
 
-  } else {
+    } else {
 
-    setAnswerResult('❌ 再試一次');
+      setAnswerResult('❌ 再試一次');
 
-  }
+    }
 
-}, [gesture]);
+  }, [gesture]);
 
   useEffect(() => {
     document.title = '陳立育 製作測試';
@@ -68,9 +68,9 @@ const [answerResult, setAnswerResult] =
 
   const openCamera = async () => {
     try {
-     const vision = await FilesetResolver.forVisionTasks(
-  "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14"
-);
+      const vision = await FilesetResolver.forVisionTasks(
+        "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14"
+      );
 
       const handLandmarker =
         await HandLandmarker.createFromOptions(
@@ -164,133 +164,133 @@ const [answerResult, setAnswerResult] =
         ];
 
         results.landmarks.forEach(
-  (hand) => {
+          (hand) => {
 
-    const indexUp =
-      hand[8].y < hand[6].y;
+            const indexUp =
+              hand[8].y < hand[6].y;
 
-    const middleUp =
-      hand[12].y < hand[10].y;
+            const middleUp =
+              hand[12].y < hand[10].y;
 
-    const ringUp =
-      hand[16].y < hand[14].y;
+            const ringUp =
+              hand[16].y < hand[14].y;
 
-    const pinkyUp =
-      hand[20].y < hand[18].y;
+            const pinkyUp =
+              hand[20].y < hand[18].y;
 
-const thumbOpen =
-  Math.abs(hand[4].x - hand[3].x) > 0.03;
+            const thumbOpen =
+              Math.abs(hand[4].x - hand[3].x) > 0.03;
 
-    let result = '未辨識';
+            let result = '未辨識';
 
-if (
-  thumbOpen &&
-  !indexUp &&
-  !middleUp &&
-  !ringUp &&
-  !pinkyUp
-) {
-  result = '數字 5';
+            if (
+              thumbOpen &&
+              !indexUp &&
+              !middleUp &&
+              !ringUp &&
+              !pinkyUp
+            ) {
+              result = '數字 5';
 
-} else if (
-  indexUp &&
-  !middleUp &&
-  !ringUp &&
-  !pinkyUp
-) {
-  result = '數字 1';
-    } else if (
-      indexUp &&
-      middleUp &&
-      !ringUp &&
-      !pinkyUp
-    ) {
-      result = '數字 2';
-    } else if (
-      indexUp &&
-      middleUp &&
-      ringUp &&
-      !pinkyUp
-    ) {
-      result = '數字 3';
-    } else if (
-  indexUp &&
-  middleUp &&
-  ringUp &&
-  pinkyUp
-) {
-  result = '數字 4';
-}
+            } else if (
+              indexUp &&
+              !middleUp &&
+              !ringUp &&
+              !pinkyUp
+            ) {
+              result = '數字 1';
+            } else if (
+              indexUp &&
+              middleUp &&
+              !ringUp &&
+              !pinkyUp
+            ) {
+              result = '數字 2';
+            } else if (
+              indexUp &&
+              middleUp &&
+              ringUp &&
+              !pinkyUp
+            ) {
+              result = '數字 3';
+            } else if (
+              indexUp &&
+              middleUp &&
+              ringUp &&
+              pinkyUp
+            ) {
+              result = '數字 4';
+            }
 
-    setGesture(result);
-    console.log(
-  'thumb',
-  thumbOpen,
-  'index',
-  indexUp,
-  'middle',
-  middleUp,
-  'ring',
-  ringUp,
-  'pinky',
-  pinkyUp,
-  '=>',
-  result
-);
-    /*
-
-    setAnswerResult('✅ 答對');
-
-    setAnswered(true);
-
-    setTimeout(() => {
-
-      const nextQuestion =
-        questions[
-          Math.floor(
-            Math.random() *
-            questions.length
-          )
-        ];
-
-   setTimeout(() => {
-
-  const nextQuestion =
-    questions[
-      Math.floor(
-        Math.random() *
-        questions.length
-      )
-    ];
-
-  console.log('準備換題');
-
-  setQuestion(nextQuestion);
-
-  console.log(
-    '新題目=',
-    nextQuestion
-  );
-
-  setAnswerResult('');
-  setAnswered(false);
-
-}, 1000);
-
-      setAnswerResult('');
-
-      setAnswered(false);
-
-    }, 1000);
-
-  } else {
-
-    setAnswerResult('❌ 再試一次');
-
-  }
-
-}
-*/
+            setGesture(result);
+            console.log(
+              'thumb',
+              thumbOpen,
+              'index',
+              indexUp,
+              'middle',
+              middleUp,
+              'ring',
+              ringUp,
+              'pinky',
+              pinkyUp,
+              '=>',
+              result
+            );
+            /*
+        
+            setAnswerResult('✅ 答對');
+        
+            setAnswered(true);
+        
+            setTimeout(() => {
+        
+              const nextQuestion =
+                questions[
+                  Math.floor(
+                    Math.random() *
+                    questions.length
+                  )
+                ];
+        
+           setTimeout(() => {
+        
+          const nextQuestion =
+            questions[
+              Math.floor(
+                Math.random() *
+                questions.length
+              )
+            ];
+        
+          console.log('準備換題');
+        
+          setQuestion(nextQuestion);
+        
+          console.log(
+            '新題目=',
+            nextQuestion
+          );
+        
+          setAnswerResult('');
+          setAnswered(false);
+        
+        }, 1000);
+        
+              setAnswerResult('');
+        
+              setAnswered(false);
+        
+            }, 1000);
+        
+          } else {
+        
+            setAnswerResult('❌ 再試一次');
+        
+          }
+        
+        }
+        */
             // 骨架
             ctx.strokeStyle = '#00AAFF';
             ctx.lineWidth = 3;
@@ -361,41 +361,42 @@ if (
           detectHands
         );
       }
-      
-   } catch (error) {
-  console.error(error);
 
-  alert(
-    'MediaPipe 載入失敗\n\n' +
-    String(error)
-  );
-}
+    } catch (error) {
+      console.error(error);
+
+      alert(
+        'MediaPipe 載入失敗\n\n' +
+        String(error)
+      );
+    }
+  }; //
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center gap-6 bg-gray-100">
 
-  <h2 className="text-lg text-gray-700">
-  陳立育 製作測試
-</h2>
+      <h2 className="text-lg text-gray-700">
+        陳立育 製作測試
+      </h2>
 
-<h1 className="text-6xl font-bold text-black">
-  台灣手語 AI 測驗系統
-</h1>
+      <h1 className="text-6xl font-bold text-black">
+        台灣手語 AI 測驗系統
+      </h1>
 
-   <p className="text-xl text-gray-700">
-  MediaPipe 手部追蹤測試
-</p>
+      <p className="text-xl text-gray-700">
+        MediaPipe 手部追蹤測試
+      </p>
       <h2 className="text-4xl font-bold text-blue-700">
-  題目：請比 {question}
-</h2>
+        題目：請比 {question}
+      </h2>
 
-<h2 className="text-5xl font-bold text-red-600">
-  {gesture}
-</h2>
+      <h2 className="text-5xl font-bold text-red-600">
+        {gesture}
+      </h2>
 
-<h2 className="text-3xl font-bold">
-  {answerResult}
-</h2>
+      <h2 className="text-3xl font-bold">
+        {answerResult}
+      </h2>
 
       <button
         onClick={openCamera}
