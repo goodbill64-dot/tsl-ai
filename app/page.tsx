@@ -81,8 +81,6 @@ console.log('建立 HandLandmarker');
 const handLandmarker =
   await HandLandmarker.createFromOptions(
 
-      const handLandmarker =
-        await HandLandmarker.createFromOptions(
           vision,
           {
             baseOptions: {
