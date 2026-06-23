@@ -222,7 +222,10 @@ console.log(
   thumbPinky
 );
 
+
   let result = '未辨識';
+  const thumbIndexTouch =
+  thumbIndex < 0.16;
   // 台灣手語 6
 if (
   thumbOpen &&
@@ -336,16 +339,15 @@ else if (
   result = '數字 8';
 }
 
-else {
-  const fingersClose =
-    Math.abs(hand[8].x - hand[12].x) < 0.05 &&
-    Math.abs(hand[12].x - hand[16].x) < 0.05 &&
-    Math.abs(hand[16].x - hand[20].x) < 0.05;
-
-  if (fingersClose) {
-    result = '數字 9';
-  }
+else if (
+  thumbIndexTouch &&
+  !middleUp &&
+  ringUp &&
+  pinkyUp
+) {
+  result = '數字 9';
 }
+
             setGesture(result);
             console.log(
               'thumb',
