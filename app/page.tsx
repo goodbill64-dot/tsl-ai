@@ -11,13 +11,17 @@ export default function Home() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [gesture, setGesture] =
     useState('未辨識');
-  const questions = [
-    '數字 1',
-    '數字 2',
-    '數字 3',
-    '數字 4',
-    '數字 5',
-  ];
+ const questions = [
+  '數字 1',
+  '數字 2',
+  '數字 3',
+  '數字 4',
+  '數字 5',
+  '數字 6',
+  '數字 7',
+  '數字 8',
+  '數字 9',
+];
 
   const [question, setQuestion] =
     useState(questions[0]);
@@ -188,47 +192,98 @@ const handLandmarker =
             const thumbOpen =
               Math.abs(hand[4].x - hand[3].x) > 0.03;
 
-            let result = '未辨識';
+  let result = '未辨識';
 
-            if (
-              thumbOpen &&
-              !indexUp &&
-              !middleUp &&
-              !ringUp &&
-              !pinkyUp
-            ) {
-              result = '數字 5';
+if (
+  thumbOpen &&
+  !indexUp &&
+  !middleUp &&
+  !ringUp &&
+  !pinkyUp
+) {
+  result = '數字 5';
+}
 
-            } else if (
-              indexUp &&
-              !middleUp &&
-              !ringUp &&
-              !pinkyUp
-            ) {
-              result = '數字 1';
-            } else if (
-              indexUp &&
-              middleUp &&
-              !ringUp &&
-              !pinkyUp
-            ) {
-              result = '數字 2';
-            } else if (
-              indexUp &&
-              middleUp &&
-              ringUp &&
-              !pinkyUp
-            ) {
-              result = '數字 3';
-            } else if (
-              indexUp &&
-              middleUp &&
-              ringUp &&
-              pinkyUp
-            ) {
-              result = '數字 4';
-            }
+else if (
+  !thumbOpen &&
+  indexUp &&
+  !middleUp &&
+  !ringUp &&
+  !pinkyUp
+) {
+  result = '數字 1';
+}
 
+else if (
+  !thumbOpen &&
+  indexUp &&
+  middleUp &&
+  !ringUp &&
+  !pinkyUp
+) {
+  result = '數字 2';
+}
+
+else if (
+  !thumbOpen &&
+  indexUp &&
+  middleUp &&
+  ringUp &&
+  !pinkyUp
+) {
+  result = '數字 3';
+}
+
+else if (
+  !thumbOpen &&
+  indexUp &&
+  middleUp &&
+  ringUp &&
+  pinkyUp
+) {
+  result = '數字 4';
+}
+
+else if (
+  thumbOpen &&
+  indexUp &&
+  !middleUp &&
+  !ringUp &&
+  !pinkyUp
+) {
+  result = '數字 6';
+}
+
+else if (
+  thumbOpen &&
+  indexUp &&
+  middleUp &&
+  !ringUp &&
+  !pinkyUp
+) {
+  result = '數字 7';
+}
+
+else if (
+  thumbOpen &&
+  indexUp &&
+  middleUp &&
+  ringUp &&
+  !pinkyUp
+) {
+  result = '數字 8';
+}
+
+else {
+  const fingersClose =
+    Math.abs(hand[8].x - hand[12].x) < 0.05 &&
+    Math.abs(hand[12].x - hand[16].x) < 0.05 &&
+    Math.abs(hand[16].x - hand[20].x) < 0.05;
+
+  if (fingersClose) {
+    result = '數字 9';
+  }
+}
             setGesture(result);
             console.log(
               'thumb',
