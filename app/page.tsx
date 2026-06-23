@@ -73,7 +73,7 @@ export default function Home() {
 console.log('載入 FilesetResolver');
 
 const vision = await FilesetResolver.forVisionTasks(
-  "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14"
+  "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm"
 );
 
 console.log('建立 HandLandmarker');
