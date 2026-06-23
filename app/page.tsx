@@ -190,7 +190,7 @@ const handLandmarker =
               hand[20].y < hand[18].y;
 
             const thumbOpen =
-              Math.abs(hand[4].x - hand[3].x) > 0.03;
+  hand[4].x < hand[3].x;
 
   let result = '未辨識';
 
