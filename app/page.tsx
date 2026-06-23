@@ -190,7 +190,7 @@ const handLandmarker =
               hand[20].y < hand[18].y;
 
             const thumbOpen =
-  hand[4].x < hand[3].x;
+  Math.abs(hand[4].x - hand[3].x) > 0.05;
 
   let result = '未辨識';
   // 台灣手語 6
