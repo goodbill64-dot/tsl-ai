@@ -68,9 +68,18 @@ export default function Home() {
 
   const openCamera = async () => {
     try {
-      const vision = await FilesetResolver.forVisionTasks(
-        "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14"
-      );
+      console.log('開始載入 MediaPipe');
+
+console.log('載入 FilesetResolver');
+
+const vision = await FilesetResolver.forVisionTasks(
+  "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
+);
+
+console.log('建立 HandLandmarker');
+
+const handLandmarker =
+  await HandLandmarker.createFromOptions(
 
       const handLandmarker =
         await HandLandmarker.createFromOptions(
@@ -362,17 +371,17 @@ export default function Home() {
         );
       }
 
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+  console.error(
+    'MediaPipe Error =',
+    error
+  );
 
-      alert(
-  JSON.stringify(
-    error,
-    null,
-    2
-  )
-);
-    }
+  alert(
+    error?.message ||
+    String(error)
+  );
+}
   }; //
 
   return (
