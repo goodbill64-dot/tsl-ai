@@ -17,10 +17,7 @@ export default function Home() {
   '數字 3',
   '數字 4',
   '數字 5',
-  '數字 6',
-  '數字 7',
-  '數字 8',
-  '數字 9',
+ 
 ];
 
   const [question, setQuestion] =
@@ -177,20 +174,21 @@ const handLandmarker =
         results.landmarks.forEach(
           (hand) => {
 
-            const indexUp =
-              hand[8].y < hand[6].y;
+const indexUp = hand[8].y < hand[6].y;
+const middleUp = hand[12].y < hand[10].y;
+const ringUp = hand[16].y < hand[14].y;
+const pinkyUp = hand[20].y < hand[18].y;
 
-            const middleUp =
-              hand[12].y < hand[10].y;
+           const thumbDistance = Math.hypot(
+  hand[4].x - hand[2].x,
+  hand[4].y - hand[2].y
+);
 
-            const ringUp =
-              hand[16].y < hand[14].y;
+const thumbOpen =
+  Math.abs(
+    hand[4].x - hand[3].x
+  ) > 0.05;
 
-            const pinkyUp =
-              hand[20].y < hand[18].y;
-
-            const thumbOpen =
-  Math.abs(hand[4].x - hand[3].x) > 0.05;
   const thumbIndex =
   Math.hypot(
     hand[4].x - hand[8].x,
@@ -216,52 +214,30 @@ const thumbPinky =
   );
 
 console.log(
+  'thumbDistance=',
+  thumbDistance,
+  'thumbIndex=',
   thumbIndex,
+  'thumbMiddle=',
   thumbMiddle,
+  'thumbRing=',
   thumbRing,
+  'thumbPinky=',
   thumbPinky
 );
-
 
   let result = '未辨識';
   const thumbIndexTouch =
   thumbIndex <
   thumbMiddle * 0.85;
-  // 台灣手語 6
+  console.log(
+  'thumbIndexTouch',
+  thumbIndexTouch
+);
+
+// 數字5
 if (
-  thumbOpen &&
-  !indexUp &&
-  !middleUp &&
-  !ringUp &&
-  pinkyUp
-) {
-  result = "數字 6";
-}
-
-// 台灣手語 7
-else if (
-  thumbOpen &&
-  !indexUp &&
-  !middleUp &&
-  ringUp &&
-  !pinkyUp
-) {
-  result = "數字 7";
-}
-
-// 台灣手語 8
-else if (
-  thumbOpen &&
-  !indexUp &&
-  middleUp &&
-  !ringUp &&
-  !pinkyUp
-) {
-  result = "數字 8";
-}
-
-if (
-  thumbOpen &&
+  thumbDistance > 0.10 &&
   !indexUp &&
   !middleUp &&
   !ringUp &&
@@ -309,46 +285,6 @@ else if (
   !thumbIndexTouch
 ) {
   result = '數字 4';
-}
-
-else if (
-  thumbOpen &&
-  indexUp &&
-  !middleUp &&
-  !ringUp &&
-  !pinkyUp
-) {
-  result = '數字 6';
-}
-
-else if (
-  thumbOpen &&
-  indexUp &&
-  middleUp &&
-  !ringUp &&
-  !pinkyUp
-) {
-  result = '數字 7';
-}
-
-else if (
-  thumbOpen &&
-  indexUp &&
-  middleUp &&
-  ringUp &&
-  !pinkyUp
-) {
-  result = '數字 8';
-}
-
-else if (
-  thumbIndexTouch &&
-  indexUp &&
-  middleUp &&
-  ringUp &&
-  pinkyUp
-) {
-  result = '數字 9';
 }
 
             setGesture(result);
