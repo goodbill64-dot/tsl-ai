@@ -191,6 +191,36 @@ const handLandmarker =
 
             const thumbOpen =
   Math.abs(hand[4].x - hand[3].x) > 0.05;
+  const thumbIndex =
+  Math.hypot(
+    hand[4].x - hand[8].x,
+    hand[4].y - hand[8].y
+  );
+
+const thumbMiddle =
+  Math.hypot(
+    hand[4].x - hand[12].x,
+    hand[4].y - hand[12].y
+  );
+
+const thumbRing =
+  Math.hypot(
+    hand[4].x - hand[16].x,
+    hand[4].y - hand[16].y
+  );
+
+const thumbPinky =
+  Math.hypot(
+    hand[4].x - hand[20].x,
+    hand[4].y - hand[20].y
+  );
+
+console.log(
+  thumbIndex,
+  thumbMiddle,
+  thumbRing,
+  thumbPinky
+);
 
   let result = '未辨識';
   // 台灣手語 6
