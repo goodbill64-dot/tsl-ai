@@ -225,7 +225,8 @@ console.log(
 
   let result = '未辨識';
   const thumbIndexTouch =
-  thumbIndex < 0.16;
+  thumbIndex <
+  thumbMiddle * 0.85;
   // 台灣手語 6
 if (
   thumbOpen &&
