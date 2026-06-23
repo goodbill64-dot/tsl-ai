@@ -193,6 +193,38 @@ const handLandmarker =
   hand[4].x < hand[3].x;
 
   let result = '未辨識';
+  // 台灣手語 6
+if (
+  thumbOpen &&
+  !indexUp &&
+  !middleUp &&
+  !ringUp &&
+  pinkyUp
+) {
+  result = "數字 6";
+}
+
+// 台灣手語 7
+else if (
+  thumbOpen &&
+  !indexUp &&
+  !middleUp &&
+  ringUp &&
+  !pinkyUp
+) {
+  result = "數字 7";
+}
+
+// 台灣手語 8
+else if (
+  thumbOpen &&
+  !indexUp &&
+  middleUp &&
+  !ringUp &&
+  !pinkyUp
+) {
+  result = "數字 8";
+}
 
 if (
   thumbOpen &&
