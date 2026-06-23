@@ -304,7 +304,8 @@ else if (
   indexUp &&
   middleUp &&
   ringUp &&
-  pinkyUp
+  pinkyUp &&
+  !thumbIndexTouch
 ) {
   result = '數字 4';
 }
@@ -341,7 +342,8 @@ else if (
 
 else if (
   thumbIndexTouch &&
-  !middleUp &&
+  indexUp &&
+  middleUp &&
   ringUp &&
   pinkyUp
 ) {
